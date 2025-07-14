@@ -9,9 +9,12 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 5.0'
 gem 'jbuilder', '~> 2.11'
 gem 'bootsnap', require: false
+gem 'importmap-rails'
 
 group :development, :test do
   gem 'debug', platforms: %i[ mri mingw x64_mingw ]
+  gem 'brakeman', require: false
+  gem 'rubocop', require: false
 end
 
 group :development do
