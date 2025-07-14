@@ -1,0 +1,107 @@
+<h1>Property Calculator</h1>
+
+<!-- Input Forms -->
+<div class="input-section">
+  <%= form_with(model: @property, local: true) do |form| %>
+    <h2>Input Mode</h2>
+    <div>
+      <%= form.label :input_mode, "Select Input Mode" %>
+      <%= form.select :input_mode, options_for_select([["MLS Number", "mls"], ["Basic Property Info", "basic"], ["URL", "url"], ["Image", "image"]], @property.input_mode) %>
+    </div>
+
+    <div id="mls-fields" class="input-fields <%= 'hidden' unless @property.input_mode == 'mls' %>">
+      <%= form.label :mls_number %>
+      <%= form.text_field :mls_number %>
+    </div>
+
+    <div id="basic-fields" class="input-fields <%= 'hidden' unless @property.input_mode == 'basic' %>">
+      <%= form.label :listing_price %>
+      <%= form.text_field :listing_price %>
+      <%= form.label :address %>
+      <%= form.text_field :address %>
+      <%= form.label :beds %>
+      <%= form.number_field :beds %>
+      <%= form.label :baths %>
+      <%= form.number_field :baths %>
+      <%= form.label :sqft %>
+      <%= form.number_field :sqft %>
+    </div>
+
+    <div id="url-fields" class="input-fields <%= 'hidden' unless @property.input_mode == 'url' %>">
+      <%= form.label :url %>
+      <%= form.text_field :url %>
+    </div>
+
+    <div id="image-fields" class="input-fields <%= 'hidden' unless @property.input_mode == 'image' %>">
+      <%= form.label :image %>
+      <%= form.file_field :image %>
+    </div>
+
+    <%= form.submit "Submit" %>
+  <% end %>
+  <% if flash[:notice] %>
+    <div class="notice"><%= flash[:notice] %></div>
+  <% end %>
+  <% if flash[:alert] %>
+    <div class="alert"><%= flash[:alert] %></div>
+  <% end %>
+</div>
+
+<!-- Output Table -->
+<div class="output-section">
+  <h2>Property Data</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Listing Price (%)</th>
+        <th>Purchase Price ($)</th>
+        <th>Down Payment ($)</th>
+        <th>Loan Amount ($)</th>
+        <th>Monthly P+I ($)</th>
+        <th>Monthly Taxes+Insurance ($)</th>
+        <th>Monthly PITI ($)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @properties.each do |property| %>
+        <tr>
+          <td>100</td>
+          <td><%= number_to_currency(property.listing_price) %></td>
+          <td><%= number_to_currency(property.listing_price * 0.20) %></td>
+          <td><%= number_to_currency(property.listing_price * 0.80) %></td>
+          <td><%= number_to_currency(calculate_pi(property.listing_price * 0.80)) %></td>
+          <td><%= number_to_currency((property.listing_price * 0.0125) / 12) %></td>
+          <td><%= number_to_currency(calculate_pi(property.listing_price * 0.80) + (property.listing_price * 0.0125) / 12 + 150) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const inputMode = document.querySelector('#property_input_mode');
+    const fields = document.querySelectorAll('.input-fields');
+
+    inputMode.addEventListener('change', function() {
+      fields.forEach(field => field.classList.add('hidden'));
+      document.getElementById(`${this.value}-fields`).classList.remove('hidden');
+    });
+
+    if (inputMode.value) {
+      document.getElementById(`${inputMode.value}-fields`).classList.remove('hidden');
+    }
+  });
+</script>
+
+<style>
+  .input-section, .output-section { margin-bottom: 20px; }
+  .input-fields { margin: 10px 0; }
+  .hidden { display: none; }
+  table { width: 100%; border-collapse: collapse; }
+  th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+  th { background-color: #f2f2f2; }
+  body { height: 100vh; overflow-y: auto; }
+  .notice { color: green; }
+  .alert { color: red; }
+</style> 
