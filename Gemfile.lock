@@ -127,6 +127,7 @@ GEM
     faraday-rack (1.0.0)
     faraday-retry (1.0.3)
     ffi (1.17.2-x86_64-darwin)
+    ffi (1.17.2-x86_64-linux-gnu)
     globalid (1.2.1)
       activesupport (>= 6.1)
     google-apis-core (0.11.3)
@@ -206,6 +207,8 @@ GEM
     nio4r (2.7.4)
     nokogiri (1.18.8-x86_64-darwin)
       racc (~> 1.4)
+    nokogiri (1.18.8-x86_64-linux-gnu)
+      racc (~> 1.4)
     os (1.1.4)
     parallel (1.27.0)
     parser (3.3.8.0)
@@ -223,8 +226,8 @@ GEM
     puma (6.6.0)
       nio4r (~> 2.0)
     racc (1.8.1)
-    rack (3.1.16)
-    rack-mini-profiler (2.3.4)
+    rack (3.2.0)
+    rack-mini-profiler (4.0.1)
       rack (>= 1.2.0)
     rack-session (2.1.1)
       base64 (>= 0.1.0)
@@ -352,6 +355,7 @@ GEM
 
 PLATFORMS
   x86_64-darwin-21
+  x86_64-linux
 
 DEPENDENCIES
   bootsnap
@@ -364,7 +368,7 @@ DEPENDENCIES
   listen (~> 3.3)
   pg
   puma (~> 6.4)
-  rack-mini-profiler (~> 2.0)
+  rack-mini-profiler (~> 4.0)
   rails (= 8.0.2)
   roo
   rubocop
