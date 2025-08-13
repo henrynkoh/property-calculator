@@ -7,7 +7,7 @@ gem 'puma', '~> 6.4'
 gem 'sass-rails', '>= 6'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 5.0'
-gem 'jbuilder', '~> 2.11'
+gem 'jbuilder', '~> 2.14'
 gem 'bootsnap', require: false
 gem 'importmap-rails'
 
