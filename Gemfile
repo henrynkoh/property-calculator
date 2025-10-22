@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-gem 'rails', '8.0.2'
+gem 'rails', '8.1.0'
 gem 'pg'
 gem 'roo'
 gem 'google_drive'
